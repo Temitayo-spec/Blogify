@@ -1,0 +1,78 @@
+.inner {
+  display: flex;
+  width: 100%;
+}
+
+.profile__ctn {
+  flex: 6;
+  padding: 0 2em;
+}
+
+.profile__ctn h1 {
+  color: rgb(59, 59, 59);
+  font-weight: 500;
+  font-size: 3em;
+  letter-spacing: 4px;
+}
+
+.profile__pic {
+  display: flex;
+  align-items: center;
+}
+
+.profile__pic img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.change__pic {
+  margin-left: 2em;
+}
+
+.change__pic button {
+  padding: 1em;
+  font-weight: 400;
+  color: #fff;
+  background: tomato;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.input__fields {
+  margin-top: 20px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inputs label {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #999;
+}
+
+.inputs input {
+  width: 100%;
+  padding: 1em;
+  outline: none;
+  border: 1px solid #ccc;
+  margin: 0.5em 0;
+  border-radius: 5px;
+}
+
+.input__fields button {
+  margin-top: 20px;
+  padding: 1em 2em;
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  background: rgb(55, 95, 95);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
+}

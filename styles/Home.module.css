@@ -1,0 +1,11 @@
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.flex__items {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 2em;
+  margin: 50px 0;
+}
