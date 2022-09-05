@@ -4,10 +4,6 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: "https://temmyblogify.herokuapp.com/api",
-  // solving localStorage not defined error
-  headers: {
-    Authorization: "",
-  },
 });
 
 export default instance;

@@ -3,16 +3,31 @@ import styles from "../styles/Profile.module.css";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserDetails, setUserDetails } from "../store/loginSlice";
+import SmallSpinner from "../components/SmallSpinner";
+import { selectIsLoading, setIsLoading } from "../store/writeSlice";
+import axios from "../axios/axios";
+import Popup from "../components/Popup";
 
 const profile = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const fileRef = useRef(null);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
+  const userDetails = useSelector(selectUserDetails);
+  const dispatch = useDispatch();
+  const [popup, setPopup] = useState({
+    show: false,
+    message: "",
+    status: "",
+  });
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [file, setFile] = useState(null);
+  const loading = useSelector(selectIsLoading);
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
@@ -21,15 +36,32 @@ const profile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const dispatch = useDispatch();
+  if (popup.show) {
+    setTimeout(() => {
+      setPopup({ show: false, message: "", status: "" });
+    }, 3000);
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getUser = async () => {
+    await axios
+      .get("/auth/user", {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).token
+          }`,
+        },
+      })
+      .then((res) => {
+        dispatch(setUserDetails(res.data));
+        console.log(res.data);
+      });
+  };
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      dispatch(setUserDetails(JSON.parse(localStorage.getItem("user"))));
-    }
-  }, [dispatch]);
-
-  const userDetails = useSelector(selectUserDetails);
+    getUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -45,21 +77,62 @@ const profile = () => {
                 profile: {
                   ...userDetails.user.profile,
                   data: reader.result.split(",")[1],
-                }
-              }
-              
+                },
+              },
             })
           );
-          console.log(userDetails);
         }
       };
+      setFile(file);
       reader.readAsDataURL(e.target.files[0]);
     }
+  };
+
+  const onUpdate = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    username && formData.append("name", username);
+    email && formData.append("email", email);
+    password && formData.append("password", password);
+    file && formData.append("profile", file);
+    dispatch(setIsLoading(true));
+    axios
+      .put("/auth/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).token
+          }`,
+        },
+      })
+      .then((res) => {
+        dispatch(setIsLoading(false));
+        getUser();
+        setPopup({
+          show: true,
+          message: "Profile updated successfully",
+          status: "success",
+        });
+        setTimeout(() => {
+          router.push("/profile");
+        }, 1500);
+      })
+      .catch((err) => {
+        dispatch(setIsLoading(false));
+        console.log(err);
+      });
   };
 
   return (
     <div className={styles.wrapper}>
       <Navbar />
+      {popup.show && (
+        <Popup
+          message={popup.message}
+          status={popup.status}
+          close={() => setPopup({ show: false, message: "", status: "" })}
+        />
+      )}
       <div className={styles.inner}>
         <Sidebar />
         <div className={styles.profile__ctn}>
@@ -87,15 +160,16 @@ const profile = () => {
               </button>
             </div>
           </div>
-          <form className={styles.input__fields}>
+          <form onSubmit={onUpdate} className={styles.input__fields}>
             <div className={styles.inputs}>
               <label htmlFor="username">Username</label>
               <input
                 type="text"
                 name="username"
                 id="username"
-                placeholder="Temitayo"
-                value={userDetails?.user?.name}
+                placeholder={userDetails?.user?.name}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className={styles.inputs}>
@@ -104,8 +178,9 @@ const profile = () => {
                 type="email"
                 name="email"
                 id="email"
-                placeholder="olawanletemitayo@gmail.com"
-                value={userDetails?.user?.email}
+                placeholder={userDetails?.user?.email}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className={styles.inputs}>
@@ -115,9 +190,13 @@ const profile = () => {
                 name="password"
                 id="password"
                 placeholder="********"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button type="submit">Update Profile</button>
+            <button className={styles.submit__btn} type="submit">
+              Update Profile {loading && <SmallSpinner />}
+            </button>
           </form>
         </div>
       </div>

@@ -19,6 +19,7 @@ const BlogPosts = () => {
     };
     getPosts();
   }, [asPath]);
+
   return (
     <div className={styles.posts__wrapper}>
       <div className={styles.posts__inner}>

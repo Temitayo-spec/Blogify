@@ -89,3 +89,52 @@
   font-weight: 600;
   margin: 0 0.1em;
 }
+
+.heading input {
+  flex: 9;
+  font-size: 1.5em;
+  text-align: center;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #444;
+  color: #444;
+  font-weight: 200;
+  letter-spacing: 2px;
+  padding: 0.5em 0;
+}
+
+.inner textarea {
+  font-size: 1.25em;
+  width: 100%;
+  resize: none;
+  border: none;
+  height: 50vh;
+  margin-top: 20px;
+}
+
+.inner textarea:focus {
+  outline: none;
+}
+
+.update__btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 0.7em 1.5em;
+  width: 20%;
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  font-size: 1.1em;
+  background: rgb(50, 204, 204);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.update__btn:hover {
+  transform: scale(0.95);
+}

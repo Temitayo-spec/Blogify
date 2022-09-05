@@ -6,15 +6,23 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { setUserDetails } from "../store/loginSlice";
 import styles from "../styles/Home.module.css";
+import axios from "../axios/axios";
 
 export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      dispatch(setUserDetails(JSON.parse(localStorage.getItem("user"))));
-    }
+    
+    axios.get("/auth/user", {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("user")).token}`,
+      },
+    }).then((res) => {
+      dispatch(setUserDetails(res.data));
+      console.log(res.data);
+    });
   }, [dispatch]);
+
   return (
     <div className={styles.container}>
       <Navbar />

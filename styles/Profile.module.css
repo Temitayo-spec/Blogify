@@ -57,15 +57,16 @@
 }
 
 .inputs input {
-  width: 100%;
+  width: 50%;
   padding: 1em;
   outline: none;
   border: 1px solid #ccc;
   margin: 0.5em 0;
   border-radius: 5px;
+  font-size: 1em;
 }
 
-.input__fields button {
+/* .input__fields button {
   margin-top: 20px;
   padding: 1em 2em;
   cursor: pointer;
@@ -75,4 +76,27 @@
   border: none;
   border-radius: 5px;
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
+} */
+
+.submit__btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 0.7em 1.5em;
+  width: 20%;
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  font-size: 1.1em;
+  background: rgb(50, 204, 204);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.submit__btn:hover {
+  transform: scale(0.95);
 }
