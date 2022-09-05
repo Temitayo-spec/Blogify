@@ -1,0 +1,103 @@
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem;
+}
+
+.form__inner {
+  width: 50%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}
+
+.header h1 {
+  font-size: 2em;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.header p {
+  font-size: 1em;
+  font-weight: 400;
+  color: #999;
+}
+
+.header p span {
+  color: tomato;
+}
+
+.input__fields {
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem;
+}
+
+.inputs {
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.inputs label {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #999;
+}
+
+.inputs input {
+  width: 100%;
+  padding: 1em;
+  outline: none;
+  border: 1px solid #ccc;
+  margin: 0.5em 0;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.inputs textarea {
+  width: 100%;
+  padding: 1em;
+  outline: none;
+  border: 1px solid #ccc;
+  margin: 0.5em 0;
+  border-radius: 5px;
+  font-size: 1em;
+  resize: none;
+  height: 20vh;
+}
+
+.submit__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit__btn button {
+  margin-top: 10px;
+  padding: 1em 2em;
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  background: rgb(55, 95, 95);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 768px) {
+  .form__inner {
+    width: 90%;
+  }
+}
