@@ -1,8 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import styles from "../styles/Sidebar.module.css";
+import axios from "../axios/axios";
+import Link from "next/link";
 
 const Sidebar = () => {
+  const [categ, setCateg] = useState([]);
+
+  useEffect(() => {
+    const fetchCateg = async () => {
+      const request = await axios.get("/categories");
+      setCateg(request.data);
+      console.log(request.data);
+    };
+    fetchCateg();
+  }, []);
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebar__inner}>
@@ -22,24 +35,13 @@ const Sidebar = () => {
         <div className={styles.sidebar__item}>
           <h3>Categories</h3>
           <ul>
-            <li>
-              <a href="#">Life</a>
-            </li>
-            <li>
-              <a href="#">Music</a>
-            </li>
-            <li>
-              <a href="#">Style</a>
-            </li>
-            <li>
-              <a href="#">Sport</a>
-            </li>
-            <li>
-              <a href="#">Tech</a>
-            </li>
-            <li>
-              <a href="#">Cinema</a>
-            </li>
+            {categ?.categories?.map((c) => (
+              <li key={c?.id}>
+                <Link href={`/?cat=${c?.name}`}>
+                  <a href="#">{c?.name}</a>
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div className={styles.sidebar__item}>

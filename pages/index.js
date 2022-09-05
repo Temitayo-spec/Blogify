@@ -1,10 +1,20 @@
-import BlogBanner from '../components/BlogBanner'
-import BlogPosts from '../components/BlogPosts'
-import Navbar from '../components/Navbar'
-import Sidebar from '../components/Sidebar'
-import styles from '../styles/Home.module.css'
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import BlogBanner from "../components/BlogBanner";
+import BlogPosts from "../components/BlogPosts";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+import { setUserDetails } from "../store/loginSlice";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      dispatch(setUserDetails(JSON.parse(localStorage.getItem("user"))));
+    }
+  }, [dispatch]);
   return (
     <div className={styles.container}>
       <Navbar />
@@ -14,5 +24,5 @@ export default function Home() {
         <Sidebar />
       </div>
     </div>
-  )
+  );
 }

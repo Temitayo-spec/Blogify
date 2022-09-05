@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserDetails, setUserDetails } from "../store/loginSlice";
 import styles from "../styles/Navbar.module.css";
 
 const Navbar = () => {
-  const user = false;
+  const userDetails = useSelector(selectUserDetails);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.inner}>
@@ -25,7 +29,7 @@ const Navbar = () => {
             <Link href="/write">
               <a>Write</a>
             </Link>
-            {user && (
+            {userDetails?.user && (
               <Link href="/logout">
                 <a>Logout</a>
               </Link>
@@ -41,13 +45,17 @@ const Navbar = () => {
         <div className={styles.nav__right}>
           {/* Fontawesome icons for search, profile */}
           <i className="fas fa-search"></i>
-          {user ? (
-            <Image
-              src="/images/nezuko-chan.jpg"
-              alt="profile"
-              height={70}
-              width={70}
-            />
+          {userDetails?.user ? (
+            <Link href="/profile">
+              <a>
+                <Image
+                  src={`data:${userDetails?.user?.profile?.contentType};base64,${userDetails?.user?.profile?.data}`}
+                  alt="profile"
+                  height={70}
+                  width={70}
+                />
+              </a>
+            </Link>
           ) : (
             <>
               <Link href="/signup">

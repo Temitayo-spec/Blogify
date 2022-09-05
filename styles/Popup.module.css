@@ -1,0 +1,49 @@
+.wrapper {
+  position: fixed;
+  left: 20%;
+  bottom: 50px;
+  z-index: 100;
+  transform: scale(0);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 10px;
+}
+
+.wrapper__inner {
+  width: auto;
+  padding: 0px 10px;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.wrapper__inner p {
+  font-weight: 500;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.success {
+  background-color: green;
+  transform: scale(1);
+}
+
+.error {
+  background-color: red;
+  transform: scale(1);
+}
+
+.wrapper__inner button {
+  cursor: pointer;
+  color: #fff;
+  background: transparent;
+  border: none;
+  margin-left: 1.3em;
+}
+
+.wrapper__inner button i {
+  font-size: 1.2em;
+}

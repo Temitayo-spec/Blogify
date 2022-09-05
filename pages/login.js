@@ -1,28 +1,90 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
+import Popup from "../components/Popup";
+import {
+  isLoading,
+  selectLoginUser,
+  setIsLoading,
+  setUser,
+  setUserDetails,
+} from "../store/loginSlice";
 import styles from "../styles/Login.module.css";
+import axios from "../axios/axios";
+import SmallSpinner from "../components/SmallSpinner";
 
 const login = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const loading = useSelector(isLoading);
   const router = useRouter();
-  const user = true;
+  const dispatch = useDispatch();
+  const [popup, setPopup] = useState({
+    show: false,
+    message: "",
+    status: "",
+  });
+  const loginUser = useSelector(selectLoginUser);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    if (user === true) {
+    if (localStorage.getItem("user")) {
       router.push("/");
     }
-  }, [router, user]);
+  }, [router]);
+
+  if (popup.show) {
+    setTimeout(() => {
+      setPopup({ show: false, message: "", status: "" });
+    }, 3000);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(setIsLoading(true));
+
+    const body = {
+      email: loginUser.email,
+      password: loginUser.password,
+    };
+
+    try {
+      const res = await axios.post("/auth/login", body);
+      if (res.status === 200) {
+        dispatch(setIsLoading(false));
+        localStorage.setItem("user", JSON.stringify(res.data));
+        router.push("/");
+        setPopup({
+          show: true,
+          message: "Login successful",
+          status: "success",
+        });
+      }
+    } catch (error) {
+      dispatch(setIsLoading(false));
+      setPopup({
+        show: true,
+        message: error.response.data.message,
+        status: "error",
+      });
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
       <Navbar />
+      {popup.show && (
+        <Popup
+          message={popup.message}
+          status={popup.status}
+          close={() => setPopup({ show: false, message: "", status: "" })}
+        />
+      )}
       <div className={styles.inner}>
         <h1>
           Login into your Account<span>.</span>
         </h1>
-        <form className={styles.input__fields}>
+        <form onSubmit={handleSubmit} className={styles.input__fields}>
           <div className={styles.inputs}>
             <label htmlFor="email">Email</label>
             <input
@@ -30,6 +92,10 @@ const login = () => {
               name="email"
               id="email"
               placeholder="olawanletemitayo@gmail.com"
+              onChange={(e) =>
+                dispatch(setUser({ field: "email", value: e.target.value }))
+              }
+              value={loginUser?.email}
             />
           </div>
           <div className={styles.inputs}>
@@ -39,10 +105,17 @@ const login = () => {
               name="password"
               id="password"
               placeholder="********"
+              onChange={(e) =>
+                dispatch(setUser({ field: "password", value: e.target.value }))
+              }
+              value={loginUser?.password}
             />
           </div>
           <div className={styles.links}>
-            <button type="submit">Sign In</button>
+            <button type="submit" className={styles.submit__btn}>
+              Sign In
+              {loading && <SmallSpinner />}
+            </button>
             <Link href="/signup">
               <a>
                 Get Started with <span>Blogify.</span>

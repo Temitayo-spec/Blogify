@@ -50,12 +50,17 @@
   border-radius: 5px;
 }
 
-.links button {
+.submit__btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 20px;
-  padding: 1em 2em;
+  padding: 0.7em 1.5em;
+  width: 25%;
   cursor: pointer;
   font-weight: 500;
   color: #fff;
+  font-size: 1.1em;
   background: rgb(55, 95, 95);
   border: none;
   border-radius: 5px;
