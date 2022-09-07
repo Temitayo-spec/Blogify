@@ -44,12 +44,11 @@
   outline: none;
 }
 
-.write__input textarea {
-  font-size: 1.25em;
+.quill {
   width: 100%;
   resize: none;
   border: none;
-  height: 50vh;
+  height: 40vh;
 }
 
 .write__input textarea:focus {
@@ -85,4 +84,21 @@
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+.multi__select_dropdown {
+  margin: 0 auto;
+}
+
+.drop__down {
+  width: 100%;
+}
+
+.drop__down input {
+  width: 100%;
+  padding: 1.25em;
+  border: none;
+  font-size: 1.25em;
+  margin-top: 1em;
+  height: 40px;
 }

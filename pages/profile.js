@@ -6,11 +6,12 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserDetails, setUserDetails } from "../store/loginSlice";
 import SmallSpinner from "../components/SmallSpinner";
 import { selectIsLoading, setIsLoading } from "../store/writeSlice";
 import axios from "../axios/axios";
 import Popup from "../components/Popup";
+import { selectToken } from "../store/token";
+import { selectUserDetails, setUserDetails } from "../store/userSlice";
 
 const profile = () => {
   const fileRef = useRef(null);
@@ -28,6 +29,7 @@ const profile = () => {
   const [password, setPassword] = useState("");
   const [file, setFile] = useState(null);
   const loading = useSelector(selectIsLoading);
+  const token = useSelector(selectToken);
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
@@ -47,21 +49,18 @@ const profile = () => {
     await axios
       .get("/auth/user", {
         headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).token
-          }`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         dispatch(setUserDetails(res.data));
-        console.log(res.data);
       });
   };
 
   useEffect(() => {
     getUser();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token, dispatch]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -100,9 +99,7 @@ const profile = () => {
       .put("/auth/update", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).token
-          }`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
@@ -113,6 +110,11 @@ const profile = () => {
           message: "Profile updated successfully",
           status: "success",
         });
+        // set input fields to empty
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setFile(null);
         setTimeout(() => {
           router.push("/profile");
         }, 1500);

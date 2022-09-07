@@ -2,22 +2,17 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserDetails, setUserDetails } from "../store/loginSlice";
 import { selectIsLoading, setIsLoading } from "../store/writeSlice";
 import styles from "../styles/SinglePost.module.css";
 import SmallSpinner from "./SmallSpinner";
 import axios from "../axios/axios";
 import Popup from "./Popup";
+import { selectToken } from "../store/token";
+import { selectUserDetails } from "../store/userSlice";
 
 const SinglePost = ({ eachPost, handleDelete }) => {
   const userDetails = useSelector(selectUserDetails);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      dispatch(setUserDetails(JSON.parse(localStorage.getItem("user"))));
-    }
-  }, [dispatch]);
 
   const [title, setTitle] = useState(eachPost.title);
   const [body, setBody] = useState(eachPost.content);
@@ -28,6 +23,7 @@ const SinglePost = ({ eachPost, handleDelete }) => {
     message: "",
     status: "",
   });
+  const token = useSelector(selectToken);
 
   if (popup.show) {
     setTimeout(() => {
@@ -38,11 +34,19 @@ const SinglePost = ({ eachPost, handleDelete }) => {
   const handleUpdate = () => {
     dispatch(setIsLoading(true));
     axios
-      .put(`/posts/${eachPost._id}`, {
-        title,
-        content: body,
-        username: userDetails.user.name,
-      })
+      .put(
+        `/posts/${eachPost._id}`,
+        {
+          title,
+          content: body,
+          username: userDetails.user.name,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         setIsEdit(false);
         dispatch(setIsLoading(false));
@@ -120,7 +124,12 @@ const SinglePost = ({ eachPost, handleDelete }) => {
             onChange={(e) => setBody(e.target.value)}
           ></textarea>
         ) : (
-          <p>{eachPost?.content}</p>
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{
+              __html: eachPost?.content,
+            }}
+          ></div>
         )}
         {isEdit && (
           <button

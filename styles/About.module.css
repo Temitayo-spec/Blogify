@@ -1,0 +1,44 @@
+.about__wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.about__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2em;
+  width: 90%;
+  margin: 0 auto;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.lhs {
+  width: 50%;
+}
+
+.lhs h1 {
+  font-size: 3.5em;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.lhs h1 span {
+  color: tomato;
+}
+
+.lhs p {
+  font-size: 1em;
+  font-weight: 400;
+  color: #999;
+}
+
+.rhs {
+  width: 50%;
+}
+
+.rhs img {
+  width: 100%;
+}

@@ -50,6 +50,17 @@
   border-radius: 5px;
 }
 
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.button button:nth-child(1) {
+  width: 25%;
+}
+
 .submit__btn {
   display: flex;
   align-items: center;
@@ -71,6 +82,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.links button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 0.7em 1.5em;
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  font-size: 1.1em;
+  background: rgb(55, 95, 95);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
+}
+
+.links button:disabled {
+  background: rgb(0, 0, 0, 0.5);
+  cursor: not-allowed;
 }
 
 .links a {

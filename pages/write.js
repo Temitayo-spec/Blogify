@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Multiselect } from "multiselect-react-dropdown";
 import axios from "../axios/axios";
 import {
   selectDesc,
@@ -18,9 +19,15 @@ import {
 } from "../store/writeSlice";
 import Popup from "../components/Popup";
 import SmallSpinner from "../components/SmallSpinner";
-import { selectUserDetails, setUserDetails } from "../store/loginSlice";
+import { selectToken } from "../store/token";
+import { selectUserDetails, setUserDetails } from "../store/userSlice";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 
 const write = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const newTitle = useSelector(selectTitle);
   const description = useSelector(selectDesc);
@@ -28,6 +35,26 @@ const write = () => {
   const loading = useSelector(selectIsLoading);
   const [file, setFile] = useState(null);
   const userDetails = useSelector(selectUserDetails);
+  const token = useSelector(selectToken);
+
+  // category data
+  const categ = [
+    { name: "Tech", id: 1 },
+    { name: "Cinema", id: 2 },
+    { name: "Music", id: 3 },
+    { name: "Life", id: 4 },
+    { name: "Sports", id: 5 },
+  ];
+
+  const [selectedValue, setSelectedValue] = useState([]);
+
+  const onSelect = (selectedList, selectedItem) => {
+    setSelectedValue(selectedList);
+  };
+
+  const onRemove = (selectedList, removedItem) => {
+    setSelectedValue(selectedList);
+  };
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
@@ -36,18 +63,19 @@ const write = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   useEffect(() => {
-    
-    axios.get("/auth/user", {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("user")).token}`,
-      },
-    }).then((res) => {
+    const getUserDetails = async () => {
+      const res = await axios.get("/auth/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(setUserDetails(res.data));
-      console.log(res.data);
-    });
-  }, [dispatch]);
+    };
+    if (token) {
+      getUserDetails();
+    }
+  }, [token, dispatch]);
 
   const [popup, setPopup] = useState({
     show: false,
@@ -55,7 +83,6 @@ const write = () => {
     status: "",
   });
 
-  const dispatch = useDispatch();
   if (popup.show) {
     setTimeout(() => {
       setPopup({ show: false, message: "", status: "" });
@@ -71,9 +98,21 @@ const write = () => {
     formData.append("content", description);
     formData.append("image", file);
     formData.append("username", userDetails.user.name);
+    formData.append(
+      "categories",
+      // sending an array of names from the selectedValue array
+      Object.values(selectedValue)
+        .map((item) => item.name)
+        .join(",")
+        .split(",")
+    );
 
     axios
-      .post("/posts", formData)
+      .post("/posts", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         if (res.status === 201) {
           console.log(res.data);
@@ -107,6 +146,21 @@ const write = () => {
     setFile(file);
   };
 
+  const quillProps = {
+    theme: "snow",
+
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image"],
+        ["clean"],
+        ["code-block", "video", "formula", "code", "image"],
+      ],
+    },
+  };
+
   return (
     <div className={styles.write__wrapper}>
       <Navbar />
@@ -135,6 +189,17 @@ const write = () => {
                 style={{ display: "none" }}
                 onChange={handleFile}
               />
+              <div className={styles.multi__select_dropdown}>
+                <Multiselect
+                  options={categ} // Options to display in the dropdown
+                  displayValue="name" // Property name to display in the dropdown options
+                  className={styles.drop__down}
+                  onSelect={onSelect} // Function will trigger on select event
+                  onRemove={onRemove} // Function will trigger on remove event
+                  selectedValues={selectedValue} // Preselected value to persist in dropdown
+                  placeholder="Select category"
+                />
+              </div>
               <button
                 style={{
                   marginLeft: "auto",
@@ -155,11 +220,13 @@ const write = () => {
             />
           </div>
           <div className={styles.write__input}>
-            <textarea
-              placeholder="Tell your story..."
-              className={styles.write__input}
-              onChange={(e) => dispatch(setDesc(e.target.value))}
-            ></textarea>
+            <ReactQuill
+              modules={quillProps.modules}
+              theme={quillProps.theme}
+              value={description}
+              onChange={(e) => dispatch(setDesc(e))}
+              className={styles.quill}
+            />
           </div>
         </form>
       </div>

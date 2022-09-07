@@ -8,7 +8,14 @@ const Post = ({ post }) => {
       <a>
         <div className={styles.wrapper}>
           <div className={styles.post__inner}>
-            <img src="/images/nezuko-chan.jpg" alt="" />
+            {post.image.data ? (
+              <img
+                src={`data:${post.image.contentType};base64,${post.image.data}`}
+                alt=""
+              />
+            ) : (
+              ""
+            )}
             <div className={styles.post__details}>
               <div className={styles.post__categ}>
                 {post?.categories?.map((categ) => (

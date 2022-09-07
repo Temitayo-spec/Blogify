@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserDetails, setUserDetails } from "../store/loginSlice";
+import { selectUserDetails } from "../store/userSlice";
 import styles from "../styles/Navbar.module.css";
 
 const Navbar = () => {
@@ -30,9 +30,15 @@ const Navbar = () => {
               <a>Write</a>
             </Link>
             {userDetails?.user && (
-              <Link href="/logout">
+              <li
+                onClick={() => {
+                  localStorage.removeItem("user");
+                  localStorage.removeItem("state");
+                  window.location.reload();
+                }}
+              >
                 <a>Logout</a>
-              </Link>
+              </li>
             )}
           </ul>
           <div className={styles.icons__ctn}>

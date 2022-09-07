@@ -96,7 +96,6 @@ const signup = () => {
         console.log(res);
         if (res.data.success === true) {
           dispatch(setIsLoading(false));
-          dispatch(setUserDetails(res.data));
           setPopup({
             show: true,
             message: res.data.message,

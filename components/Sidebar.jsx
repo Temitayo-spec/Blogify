@@ -5,17 +5,9 @@ import styles from "../styles/Sidebar.module.css";
 import axios from "../axios/axios";
 import Link from "next/link";
 
-const Sidebar = () => {
-  const [categ, setCateg] = useState([]);
-
-  useEffect(() => {
-    const fetchCateg = async () => {
-      const request = await axios.get("/categories");
-      setCateg(request.data);
-      console.log(request.data);
-    };
-    fetchCateg();
-  }, []);
+const Sidebar = (
+  { categ } // destructuring the props
+) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebar__inner}>
@@ -36,7 +28,7 @@ const Sidebar = () => {
           <h3>Categories</h3>
           <ul>
             {categ?.categories?.map((c) => (
-              <li key={c?.id}>
+              <li key={c?._id}>
                 <Link href={`/?cat=${c?.name}`}>
                   <a href="#">{c?.name}</a>
                 </Link>

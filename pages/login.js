@@ -12,6 +12,7 @@ import {
   setUser,
   setUserDetails,
 } from "../store/loginSlice";
+import { setToken } from "../store/token";
 import styles from "../styles/Login.module.css";
 import axios from "../axios/axios";
 import SmallSpinner from "../components/SmallSpinner";
@@ -52,6 +53,7 @@ const login = () => {
       const res = await axios.post("/auth/login", body);
       if (res.status === 200) {
         dispatch(setIsLoading(false));
+        dispatch(setToken(res.data.token));
         localStorage.setItem("user", JSON.stringify(res.data));
         router.push("/");
         setPopup({
