@@ -12,7 +12,7 @@ import {
   setUser,
   setUserDetails,
 } from "../store/loginSlice";
-import { setToken } from "../store/token";
+import { setToken, selectToken } from "../store/token";
 import styles from "../styles/Login.module.css";
 import axios from "../axios/axios";
 import SmallSpinner from "../components/SmallSpinner";
@@ -21,6 +21,7 @@ const login = () => {
   const loading = useSelector(isLoading);
   const router = useRouter();
   const dispatch = useDispatch();
+  const token = useSelector(selectToken);
   const [popup, setPopup] = useState({
     show: false,
     message: "",
@@ -29,10 +30,10 @@ const login = () => {
   const loginUser = useSelector(selectLoginUser);
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
+    if (token) {
       router.push("/");
     }
-  }, [router]);
+  }, [router, token]);
 
   if (popup.show) {
     setTimeout(() => {

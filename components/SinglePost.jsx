@@ -9,11 +9,14 @@ import axios from "../axios/axios";
 import Popup from "./Popup";
 import { selectToken } from "../store/token";
 import { selectUserDetails } from "../store/userSlice";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 
 const SinglePost = ({ eachPost, handleDelete }) => {
   const userDetails = useSelector(selectUserDetails);
   const dispatch = useDispatch();
-
   const [title, setTitle] = useState(eachPost.title);
   const [body, setBody] = useState(eachPost.content);
   const [isEdit, setIsEdit] = useState(false);
@@ -72,6 +75,21 @@ const SinglePost = ({ eachPost, handleDelete }) => {
     setIsEdit(false);
   };
 
+  const quillProps = {
+    theme: "snow",
+
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image"],
+        ["clean"],
+        ["code-block", "video", "formula", "code", "image"],
+      ],
+    },
+  };
+
   return (
     <div className={styles.wrapper}>
       {popup.show && (
@@ -119,10 +137,13 @@ const SinglePost = ({ eachPost, handleDelete }) => {
           <span>{new Date(eachPost?.createdAt).toDateString()}</span>
         </div>
         {isEdit ? (
-          <textarea
+          <ReactQuill
+            modules={quillProps.modules}
+            theme={quillProps.theme}
             value={body}
-            onChange={(e) => setBody(e.target.value)}
-          ></textarea>
+            onChange={(e) => setBody(e)}
+            className={styles.quill}
+          />
         ) : (
           <div
             className={styles.content}

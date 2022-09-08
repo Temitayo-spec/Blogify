@@ -13,7 +13,16 @@ import Popup from "../components/Popup";
 import { selectToken } from "../store/token";
 import { selectUserDetails, setUserDetails } from "../store/userSlice";
 
-const profile = () => {
+export const getServerSideProps = async () => {
+  const res = await axios.get("/categories");
+  return {
+    props: {
+      categ: res.data,
+    },
+  };
+};
+
+const profile = ({categ}) => {
   const fileRef = useRef(null);
   const router = useRouter();
   const userDetails = useSelector(selectUserDetails);
@@ -32,7 +41,7 @@ const profile = () => {
   const token = useSelector(selectToken);
 
   useEffect(() => {
-    if (!localStorage.getItem("user")) {
+    if (!token) {
       router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -136,7 +145,7 @@ const profile = () => {
         />
       )}
       <div className={styles.inner}>
-        <Sidebar />
+        <Sidebar categ={categ} />
         <div className={styles.profile__ctn}>
           <h1>Profile</h1>
           <div className={styles.profile__pic}>

@@ -47,5 +47,30 @@
 }
 
 .blogify__texts p span {
-    color: tomato;
+  color: tomato;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    height: 100vh;
+  }
+  .inner {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .banner__img {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .blogify__texts {
+    width: 100%;
+  }
+
+  .blogify__texts p {
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  letter-spacing: 3px;
+}
+  
 }

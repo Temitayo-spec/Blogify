@@ -1,5 +1,6 @@
 .wrapper {
   flex: 2;
+  overflow-x: hidden;
 }
 
 .sidebar__inner {
@@ -104,4 +105,34 @@
 
 .icons__ctn i:hover::after {
   transform: translate(-50%, -50%) scale(1);
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper{
+    position: absolute;
+    background: #fff;
+    width: 90%;
+    border-radius: 10px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .hide {
+    transform: translateX(-130%);
+  }
+
+  .sidebar__inner {
+    padding: 0.5em 0;
+  }
+
+  .profile {
+    height: 40vh;
+  }
+
+  .sidebar__item ul {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar__item ul li {
+    font-size: 1em;
+  }
 }

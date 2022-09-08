@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://temmyblogify.herokuapp.com/api",
+  baseURL: "https://temmyblogify.up.railway.app/api",
 });
 
 export default instance;

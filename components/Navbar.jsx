@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { selectUserDetails } from "../store/userSlice";
 import styles from "../styles/Navbar.module.css";
 
 const Navbar = () => {
   const userDetails = useSelector(selectUserDetails);
+  const [show, setShow] = useState(false);
 
   return (
     <div className={styles.wrapper}>
@@ -15,7 +16,12 @@ const Navbar = () => {
           <Image src="/svgs/icon.svg" alt="logo" height="60%" width="60%" />
           <h1>Blogify</h1>
         </div>
-        <div className={styles.nav__mid}>
+        <div className={`${styles.nav__mid} ${
+          show ? styles.nav__mid__show : ""
+        }`}>
+          <div onClick={() => setShow(false)} className={styles.close__menu}>
+            <i className="fas fa-times"></i>
+          </div>
           <ul className={styles.nav__link__ctn}>
             <Link href="/">
               <a>Home</a>
@@ -72,6 +78,9 @@ const Navbar = () => {
               </Link>
             </>
           )}
+        </div>
+        <div onClick={() => setShow(true)} className={styles.hamburger__menu}>
+          <i className="fas fa-bars"></i>
         </div>
       </div>
     </div>

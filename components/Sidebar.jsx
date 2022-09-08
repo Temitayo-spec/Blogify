@@ -6,10 +6,10 @@ import axios from "../axios/axios";
 import Link from "next/link";
 
 const Sidebar = (
-  { categ } // destructuring the props
+  { categ, show } // destructuring the props
 ) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${show === "right" ? styles.hide : ""}`}>
       <div className={styles.sidebar__inner}>
         <header className={styles.header}>
           <h2>About me</h2>

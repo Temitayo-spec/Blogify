@@ -26,7 +26,12 @@ const Post = ({ post }) => {
               </div>
               <div className={styles.post__title}>{post.title}</div>
             </div>
-            <p className={styles.description}>{post.content}</p>
+            <div
+              className={styles.description}
+              dangerouslySetInnerHTML={{
+                __html: post?.content,
+              }}
+            ></div>
             <div className={styles.createdAt}>
               {new Date(post.createdAt).toDateString()}
             </div>

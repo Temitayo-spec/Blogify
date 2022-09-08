@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BlogBanner from "../components/BlogBanner";
 import BlogPosts from "../components/BlogPosts";
@@ -40,13 +40,26 @@ export default function Home({ categ, posts }) {
     }
   }, [token, dispatch]);
 
+  const [show, setShow] = useState("left");
+
   return (
     <div className={styles.container}>
       <Navbar />
       <BlogBanner />
+      <div className={styles.arrow__ctn}>
+        {show === "left" ? (
+          <div onClick={() => setShow("right")} className={styles.arrow__left}>
+            <i className="fas fa-arrow-left"></i>
+          </div>
+        ) : (
+          <div onClick={() => setShow("left")} className={styles.arrow__right}>
+            <i className="fas fa-arrow-right"></i>
+          </div>
+        )}
+      </div>
       <div className={styles.flex__items}>
         <BlogPosts allPosts={posts} />
-        <Sidebar categ={categ} />
+        <Sidebar categ={categ} show={show} />
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ const write = () => {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem("user")) {
+    if (!token) {
       router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
