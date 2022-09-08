@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectToken } from "../../store/token";
 import { setUserDetails } from "../../store/userSlice";
 import { useEffect } from "react";
+import { useState } from "react";
 
 export const getServerSideProps = async (context) => {
   const res = await axios.get(`/posts/${context.params.id}`);
@@ -24,6 +25,7 @@ export const getServerSideProps = async (context) => {
 
 const details = ({ post, categ }) => {
   const token = useSelector(selectToken);
+  const [show, setShow] = useState("left");
   const dispatch = useDispatch();
   useEffect(() => {
     const getUserDetails = async () => {
@@ -59,8 +61,19 @@ const details = ({ post, categ }) => {
   return (
     <div className={styles.details__wrapper}>
       <Navbar />
+      <div className={styles.arrow__ctn}>
+        {show === "left" ? (
+          <div onClick={() => setShow("right")} className={styles.arrow__left}>
+            <i className="fas fa-arrow-left"></i>
+          </div>
+        ) : (
+          <div onClick={() => setShow("left")} className={styles.arrow__right}>
+            <i className="fas fa-arrow-right"></i>
+          </div>
+        )}
+      </div>
       <div className={styles.details__inner}>
-        <Sidebar categ={categ} />
+        <Sidebar categ={categ} show={show} />
         <SinglePost eachPost={post} handleDelete={handleDelete} />
       </div>
     </div>

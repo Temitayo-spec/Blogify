@@ -22,7 +22,7 @@ export const getServerSideProps = async () => {
   };
 };
 
-const profile = ({categ}) => {
+const profile = ({ categ }) => {
   const fileRef = useRef(null);
   const router = useRouter();
   const userDetails = useSelector(selectUserDetails);
@@ -32,7 +32,7 @@ const profile = ({categ}) => {
     message: "",
     status: "",
   });
-
+  const [show, setShow] = useState("left");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -68,7 +68,7 @@ const profile = ({categ}) => {
 
   useEffect(() => {
     getUser();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, dispatch]);
 
   const handleFileChange = (e) => {
@@ -144,10 +144,22 @@ const profile = ({categ}) => {
           close={() => setPopup({ show: false, message: "", status: "" })}
         />
       )}
+      <div className={styles.arrow__ctn}>
+        {show === "left" ? (
+          <div onClick={() => setShow("right")} className={styles.arrow__left}>
+            <i className="fas fa-arrow-left"></i>
+          </div>
+        ) : (
+          <div onClick={() => setShow("left")} className={styles.arrow__right}>
+            <i className="fas fa-arrow-right"></i>
+          </div>
+        )}
+      </div>
       <div className={styles.inner}>
-        <Sidebar categ={categ} />
+        <Sidebar categ={categ} show={show} />
         <div className={styles.profile__ctn}>
           <h1>Profile</h1>
+
           <div className={styles.profile__pic}>
             <Image
               src={`data:${userDetails?.user?.profile?.contentType};base64,${userDetails?.user?.profile?.data}`}

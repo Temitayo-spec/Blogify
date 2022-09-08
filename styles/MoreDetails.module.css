@@ -1,3 +1,28 @@
 .details__inner {
   display: flex;
 }
+
+@media screen and (max-width: 768px) { 
+  .arrow__ctn {
+    margin-left: auto;
+  }
+
+  .arrow__left,
+  .arrow__right {
+    background: tomato;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0.5em;
+  }
+
+  .arrow__ctn i {
+    font-size: 1.5em;
+    color: #fff;
+    cursor: pointer;
+  }
+}

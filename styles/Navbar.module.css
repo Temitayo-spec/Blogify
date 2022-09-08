@@ -125,9 +125,10 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
-  .hamburger__menu, .close__menu {
-    display: none;
-  }
+.hamburger__menu,
+.close__menu {
+  display: none;
+}
 
 @media screen and (max-width: 768px) {
   .close__menu {
@@ -149,7 +150,7 @@
     position: fixed;
     left: 0;
     top: 10px;
-    width: 95%;
+    width: 100%;
     height: 100%;
     background: #fff;
     height: 100vh;
@@ -175,6 +176,10 @@
   }
 
   .hamburger__menu {
+    display: block;
+  }
+
+  .show {
     display: block;
   }
 

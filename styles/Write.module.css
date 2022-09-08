@@ -1,6 +1,13 @@
+.write__wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
 .write__inner {
   margin-top: 2em;
   width: 90%;
+  height: 100%;
   margin: 2em auto;
 }
 
@@ -101,4 +108,49 @@
   font-size: 1.25em;
   margin-top: 1em;
   height: 40px;
+}
+
+.drop__down input:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 768px) {
+  .write__inner {
+    width: 90%;
+    margin: 2em auto;
+  }
+
+  .file__input {
+    flex-direction: column;
+  }
+
+  .file__input label {
+    margin-bottom: 1em;
+  }
+
+  .drop__down input {
+    height: 20px;
+    padding: 0.8em;
+    margin: 0.5em 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .heading input {
+    font-size: 20px;
+    padding: 0.8em;
+    margin: 10px 0;
+  }
+
+  .write__img {
+    height: 40vh;
+  }
+
+  .quill {
+    height: 30vh;
+  }
+
+  .submit__btn {
+    width: 40%;
+  }
 }

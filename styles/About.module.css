@@ -42,3 +42,18 @@
 .rhs img {
   width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+  .about__inner {
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+  .lhs {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .rhs {
+    width: 100%;
+  }
+}

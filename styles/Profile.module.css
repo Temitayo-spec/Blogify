@@ -1,6 +1,8 @@
 .inner {
   display: flex;
   width: 100%;
+  height: 100%;
+  margin-bottom: 2em;
 }
 
 .profile__ctn {
@@ -99,4 +101,60 @@
 
 .submit__btn:hover {
   transform: scale(0.95);
+}
+
+@media screen and (max-width: 768px) {
+
+  .profile__ctn {
+    flex: 8;
+    height: 100%;
+  }
+
+  .profile__ctn h1 {
+    font-size: 2.5em;
+  }
+
+  .profile__pic {
+    flex-direction: column;
+  }
+
+  .change__pic {
+    margin-left: 0;
+    margin-top: 1em;
+  }
+
+  .inputs {
+    width: 100%;
+  }
+
+  .inputs input {
+    width: 100%;
+  }
+
+  .submit__btn {
+    width: 100%;
+  }
+  
+  .arrow__ctn {
+    margin-left: auto;
+  }
+
+  .arrow__left,
+  .arrow__right {
+    background: tomato;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0.5em;
+  }
+
+  .arrow__ctn i {
+    font-size: 1.5em;
+    color: #fff;
+    cursor: pointer;
+  }
 }

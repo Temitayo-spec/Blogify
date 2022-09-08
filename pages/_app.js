@@ -20,13 +20,7 @@ function MyApp({ Component, pageProps, router }) {
 
   return (
     <>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Component {...pageProps} />
-        </PersistGate>
-      </Provider>
-
-      {/* {
+      {
         // show the preloader if it's true
         showPreloader ? (
           <Preloader />
@@ -37,11 +31,13 @@ function MyApp({ Component, pageProps, router }) {
             animate={{ opacity: 1, transform: "scale(1)" }}
           >
             <Provider store={store}>
-              <Component {...pageProps} />
+              <PersistGate loading={null} persistor={persistor}>
+                <Component {...pageProps} />
+              </PersistGate>
             </Provider>
           </motion.div>
         )
-      } */}
+      }
     </>
   );
 }

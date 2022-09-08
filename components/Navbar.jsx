@@ -16,24 +16,24 @@ const Navbar = () => {
           <Image src="/svgs/icon.svg" alt="logo" height="60%" width="60%" />
           <h1>Blogify</h1>
         </div>
-        <div className={`${styles.nav__mid} ${
-          show ? styles.nav__mid__show : ""
-        }`}>
+        <div
+          className={`${styles.nav__mid} ${show ? styles.nav__mid__show : ""}`}
+        >
           <div onClick={() => setShow(false)} className={styles.close__menu}>
             <i className="fas fa-times"></i>
           </div>
           <ul className={styles.nav__link__ctn}>
             <Link href="/">
-              <a>Home</a>
+              <a onClick={() => setShow(false)}>Home</a>
             </Link>
             <Link href="/about">
-              <a>About</a>
+              <a onClick={() => setShow(false)}>About</a>
             </Link>
             <Link href="/contact">
-              <a>Contact</a>
+              <a onClick={() => setShow(false)}>Contact</a>
             </Link>
             <Link href="/write">
-              <a>Write</a>
+              <a onClick={() => setShow(false)}>Write</a>
             </Link>
             {userDetails?.user && (
               <li
@@ -41,6 +41,7 @@ const Navbar = () => {
                   localStorage.removeItem("user");
                   localStorage.removeItem("state");
                   window.location.reload();
+                  setShow(false);
                 }}
               >
                 <a>Logout</a>
@@ -54,12 +55,12 @@ const Navbar = () => {
             <i className="fab fa-twitter"></i>
           </div>
         </div>
-        <div className={styles.nav__right}>
+        <div className={`${styles.nav__right} ${show ? styles.show : ""}`}>
           {/* Fontawesome icons for search, profile */}
           <i className="fas fa-search"></i>
           {userDetails?.user ? (
             <Link href="/profile">
-              <a>
+              <a onClick={() => setShow(false)}>
                 <Image
                   src={`data:${userDetails?.user?.profile?.contentType};base64,${userDetails?.user?.profile?.data}`}
                   alt="profile"

@@ -138,3 +138,42 @@
 .update__btn:hover {
   transform: scale(0.95);
 }
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 1em 0.5em;
+  }
+
+  .icons__ctn {
+    flex: 2.2;
+  }
+
+  .heading {
+    margin: 0.5em 0;
+  }
+
+  .heading h1 {
+    font-size: 1.5em;
+  }
+
+  .heading input {
+    font-size: 1.2em;
+  }
+
+  .inner textarea {
+    font-size: 1em;
+  }
+
+  .post__details {
+    margin-top: 0.5em;
+  }
+
+  .createdAt {
+    margin-bottom: 0.5em;
+  }
+
+  .update__btn {
+    width: 30%;
+  }
+  
+}
