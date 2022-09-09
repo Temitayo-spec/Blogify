@@ -84,6 +84,7 @@
 }
 
 .nav__right i {
+  display: none;
   font-size: 1.5em;
   color: #666;
   cursor: pointer;
@@ -135,9 +136,7 @@
   .close__menu {
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
-    top: 20px;
+    top: 30px;
     left: 30px;
   }
 
@@ -182,11 +181,28 @@
 
   .show {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    width: 100%;
   }
 
   .hamburger__menu i {
     font-size: 2em;
     color: #666;
     cursor: pointer;
+  }
+
+  .get__started {
+    width: 100%;
+  }
+
+  .nav__right i {
+    font-size: 1em;
+    margin-right: 1em;
+  }
+
+  .nav__right a {
+    font-size: 0.8em;
   }
 }

@@ -1,14 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectUserDetails } from "../store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserDetails, setUserDetails } from "../store/userSlice";
 import { motion } from "framer-motion";
 import styles from "../styles/Navbar.module.css";
+import { setToken } from "../store/token";
 
 const Navbar = () => {
   const userDetails = useSelector(selectUserDetails);
   const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
 
   const textVariants = {
     offscreen: {
@@ -73,7 +75,8 @@ const Navbar = () => {
                 variants={textVariants}
                 onClick={() => {
                   localStorage.removeItem("user");
-                  localStorage.removeItem("state");
+                  dispatch(setUserDetails(null));
+                  dispatch(setToken(null));
                   window.location.reload();
                   setShow(false);
                 }}
@@ -87,6 +90,7 @@ const Navbar = () => {
             whileInView="onscreen"
             transition={{ staggerChildren: 0.1 }}
             className={styles.icons__ctn}
+            triggerOnce
           >
             {/* Fontawesome icons for facebook, instagram, twitter */}
             <motion.i
@@ -120,17 +124,24 @@ const Navbar = () => {
           ) : (
             <>
               <Link href="/signup">
-                <a>Get Started</a>
+                <a
+                  onClick={() => setShow(false)}
+                  className={styles.get__started}
+                >
+                  Get Started
+                </a>
               </Link>
               <Link href="/login">
-                <a>Login</a>
+                <a onClick={() => setShow(false)}>Login</a>
               </Link>
             </>
           )}
         </div>
-        <div onClick={() => setShow(true)} className={styles.hamburger__menu}>
-          <i className="fas fa-bars"></i>
-        </div>
+        {!show && (
+          <div onClick={() => setShow(true)} className={styles.hamburger__menu}>
+            <i className="fas fa-bars"></i>
+          </div>
+        )}
       </div>
     </div>
   );

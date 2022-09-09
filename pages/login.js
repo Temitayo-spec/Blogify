@@ -85,7 +85,7 @@ const login = () => {
       )}
       <div className={styles.inner}>
         <h1>
-          Login into your Account<span>.</span>
+          Login into your {" "} <span>Account.</span>
         </h1>
         <form onSubmit={handleSubmit} className={styles.input__fields}>
           <div className={styles.inputs}>

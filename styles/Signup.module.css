@@ -180,3 +180,46 @@
   margin-left: 20px;
   background: #666;
 }
+
+@media screen and (max-width: 768px) {
+  .inner {
+    width: 90%;
+  }
+
+  .inner h1 {
+    font-size: 2em;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .button button:nth-child(1) {
+    width: 100%;
+  }
+
+  .submit__btn {
+    width: 100%;
+  }
+
+  .links {
+    flex-direction: column;
+  }
+
+  .links button {
+    width: 100%;
+  }
+
+  .links a {
+    margin-top: 20px;
+  }
+
+  .upload__profile__picture__inner__image i {
+    font-size: 6em;
+  }
+
+
+  .upload__profile__picture__inner h2 {
+    font-size: 1em;
+  }
+}

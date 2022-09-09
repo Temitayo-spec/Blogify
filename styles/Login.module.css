@@ -82,3 +82,38 @@
   color: tomato;
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .inner {
+    width: 90%;
+  }
+
+  .inner h1 {
+    font-size: 2em;
+  }
+
+  .submit__btn {
+    width: 70%;
+  }
+
+  .links {
+    flex-direction: column;
+  }
+
+  .links a {
+    margin-top: 10px;
+  }
+
+  .links a span {
+    color: tomato;
+    cursor: pointer;
+  }
+
+  .links a:hover {
+    color: #000;
+  }
+
+  .links a span:hover {
+    color: tomato;
+  }
+}
