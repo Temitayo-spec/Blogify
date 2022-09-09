@@ -1,5 +1,6 @@
 .posts__wrapper {
   flex: 6;
+  padding-bottom: 2em;
 }
 
 .posts__inner {

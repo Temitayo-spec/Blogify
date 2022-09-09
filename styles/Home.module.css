@@ -15,9 +15,14 @@
   width: 100%;
 }
 
+.arrow__ctn {
+  display: none
+}
+
 @media screen and (max-width: 768px) {
   .arrow__ctn {
     margin-left: auto;
+    display: block;
   }
 
   .arrow__left,

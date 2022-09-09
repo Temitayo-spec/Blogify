@@ -44,8 +44,8 @@ const Sidebar = (
     <div className={`${styles.wrapper} ${show === "right" ? styles.hide : ""}`}>
       <div className={styles.sidebar__inner}>
         <motion.header
-          initial={show === "right" ? "offscreen" : "onscreen"}
-          animate={show === "right" ? "offscreen" : "onscreen"}
+          initial="offscreen"
+          whileInView="onscreen"
           transition={{ staggerChildren: 0.5 }}
           className={styles.header}
         >

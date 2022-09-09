@@ -41,8 +41,10 @@ const Navbar = () => {
             <i className="fas fa-times"></i>
           </div>
           <motion.ul
-            initial={show ? "onscreen" : "offscreen"}
-            whileInView={show ? "onscreen" : "offscreen"}
+            initial={window.innerWidth > 500 || show ? "onscreen" : "offscreen"}
+            whileInView={
+              window.innerWidth > 500 || show ? "onscreen" : "offscreen"
+            }
             transition={{ staggerChildren: 0.5 }}
             className={styles.nav__link__ctn}
           >

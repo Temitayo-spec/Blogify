@@ -103,6 +103,10 @@
   transform: scale(0.95);
 }
 
+.arrow__ctn {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
 
   .profile__ctn {
@@ -137,6 +141,7 @@
   
   .arrow__ctn {
     margin-left: auto;
+    display: block;
   }
 
   .arrow__left,
