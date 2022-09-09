@@ -1,3 +1,7 @@
+# Blogify
+A  blog app created with Next.js (React Framework), Redux Toolkit for state management, Node.js and Express for the backend server, MongoDB for the database.✨🎉.
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
