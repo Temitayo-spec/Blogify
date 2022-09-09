@@ -214,10 +214,13 @@
     margin-top: 20px;
   }
 
+  .upload__btn {
+    margin-left: 0.5em;
+  }
+
   .upload__profile__picture__inner__image i {
     font-size: 6em;
   }
-
 
   .upload__profile__picture__inner h2 {
     font-size: 1em;
