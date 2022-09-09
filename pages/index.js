@@ -40,7 +40,7 @@ export default function Home({ categ, posts }) {
     }
   }, [token, dispatch]);
 
-  const [show, setShow] = useState("left");
+  const [show, setShow] = useState("right");
 
   return (
     <div className={styles.container}>

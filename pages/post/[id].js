@@ -25,7 +25,7 @@ export const getServerSideProps = async (context) => {
 
 const details = ({ post, categ }) => {
   const token = useSelector(selectToken);
-  const [show, setShow] = useState("left");
+  const [show, setShow] = useState("right");
   const dispatch = useDispatch();
   useEffect(() => {
     const getUserDetails = async () => {

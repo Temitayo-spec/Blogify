@@ -39,8 +39,8 @@ const Preloader = () => {
       )
       .to(textRef.current, {
         opacity: 1,
-        boxShadow: "12px 20px rgba(255, 255, 255, 0.23)",
-        skewY: 5,
+        boxShadow: "0px 0px 20px rgba(255, 255, 255, 0.23)",
+        skewY: 2,
         y: "10%",
         stagger: {
           amount: 0.4,
@@ -76,7 +76,7 @@ const Preloader = () => {
         </div>
       </div>
       <div ref={headingRef} className={styles.heading}>
-        <h1 ref={textRef}>Kenneth Hybrid Foundation</h1>
+        <h1 ref={textRef}>Blogify</h1>
       </div>
     </div>
   );

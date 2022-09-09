@@ -1,29 +1,67 @@
 /* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
-import { useEffect, useState } from "react";
 import styles from "../styles/Sidebar.module.css";
-import axios from "../axios/axios";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const Sidebar = (
   { categ, show } // destructuring the props
 ) => {
+  const textVariants = {
+    offscreen: {
+      x: -100,
+      opacity: 0,
+    },
+    onscreen: {
+      x: 0,
+      opacity: 1,
+
+      transition: {
+        type: "tween",
+        duration: 1,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const imageVariants = {
+    offscreen: {
+      // scaling the image from 0 to 1
+      scale: 0,
+      opacity: 0,
+    },
+    onscreen: {
+      scale: 1,
+      opacity: 1,
+
+      transition: {
+        type: "tween",
+        duration: 1,
+        ease: "easeInOut",
+      },
+    },
+  };
   return (
     <div className={`${styles.wrapper} ${show === "right" ? styles.hide : ""}`}>
       <div className={styles.sidebar__inner}>
-        <header className={styles.header}>
-          <h2>About me</h2>
-          <img
+        <motion.header
+          initial={show === "right" ? "offscreen" : "onscreen"}
+          animate={show === "right" ? "offscreen" : "onscreen"}
+          transition={{ staggerChildren: 0.5 }}
+          className={styles.header}
+        >
+          <motion.h2 variants={textVariants}>About me</motion.h2>
+          <motion.img
+            variants={imageVariants}
             src="/images/profile.jpg"
             alt="profile"
             className={styles.profile}
           />
-          <p>
+          <motion.p variants={textVariants}>
             I am a software engineer based in the Nigeria. I am a self-taught
             developer and I am passionate about building things that people love
             to use.
-          </p>
-        </header>
+          </motion.p>
+        </motion.header>
         <div className={styles.sidebar__item}>
           <h3>Categories</h3>
           <ul>
