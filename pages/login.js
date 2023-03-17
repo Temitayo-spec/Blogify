@@ -10,7 +10,6 @@ import {
   selectLoginUser,
   setIsLoading,
   setUser,
-  setUserDetails,
 } from "../store/loginSlice";
 import { setToken, selectToken } from "../store/token";
 import styles from "../styles/Login.module.css";
