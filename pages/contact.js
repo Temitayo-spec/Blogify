@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../axios/axios";
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import Popup from "../components/Popup";
 import styles from "../styles/Contact.module.css";

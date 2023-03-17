@@ -13,6 +13,7 @@
     "@types/lodash": "^4.14.184",
     "axios": "^0.27.2",
     "bcrypt": "^5.1.0",
+    "colors": "^1.4.0",
     "cors": "^2.8.5",
     "draft-js": "^0.11.7",
     "framer-motion": "^7.2.1",

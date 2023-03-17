@@ -8,13 +8,13 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import SmallSpinner from "../components/SmallSpinner";
 import { selectIsLoading, setIsLoading } from "../store/writeSlice";
-import axios from "../axios/axios";
+import axios from "axios";
 import Popup from "../components/Popup";
 import { selectToken } from "../store/token";
 import { selectUserDetails, setUserDetails } from "../store/userSlice";
 
 export const getServerSideProps = async () => {
-  const res = await axios.get("/categories");
+  const res = await axios.get("/api/category/getCategories");
   return {
     props: {
       categ: res.data,
@@ -56,7 +56,7 @@ const profile = ({ categ }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUser = async () => {
     await axios
-      .get("/auth/user", {
+      .get("/api/auth/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -105,7 +105,7 @@ const profile = ({ categ }) => {
     file && formData.append("profile", file);
     dispatch(setIsLoading(true));
     axios
-      .put("/auth/update", formData, {
+      .put("/api/auth/update", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

@@ -1,8 +1,6 @@
-import { User } from '../../../backend/models/userModel';
-import { Post } from '../../../backend/models/postModel';
-import connectDB from '../../../backend/config/db';
+import Post from "../../../../models/postModel";
+import User from "../../../../models/userModel";
 
-connectDB();
 
 // @route DELETE api/auth/delete/:id
 // @desc Delete user

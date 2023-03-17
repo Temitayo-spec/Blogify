@@ -1,31 +1,31 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Navbar from "../components/Navbar";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Navbar from '../components/Navbar';
 import {
   isLoading,
   selectPassword,
   selectUser,
   setIsLoading,
   setUser,
-} from "../store/signupSlice";
-import styles from "../styles/Signup.module.css";
-import axios from "../axios/axios";
-import Image from "next/image";
-import Popup from "../components/Popup";
-import SmallSpinner from "../components/SmallSpinner";
+} from '../store/signupSlice';
+import styles from '../styles/Signup.module.css';
+import axios from 'axios';
+import Image from 'next/image';
+import Popup from '../components/Popup';
+import SmallSpinner from '../components/SmallSpinner';
 
 const signup = () => {
-  const [confirm_password, setConfirmPassword] = useState("");
+  const [confirm_password, setConfirmPassword] = useState('');
   const loading = useSelector(isLoading);
   const [section, setSection] = useState(1);
-  const [picture, setPicture] = useState("");
+  const [picture, setPicture] = useState('');
   const [popup, setPopup] = useState({
     show: false,
-    message: "",
-    status: "",
+    message: '',
+    status: '',
   });
   const newUser = useSelector(selectUser);
   const fileRef = useRef(null);
@@ -36,20 +36,20 @@ const signup = () => {
   // remove popup after 3 seconds
   if (popup.show) {
     setTimeout(() => {
-      setPopup({ show: false, message: "", status: "" });
+      setPopup({ show: false, message: '', status: '' });
     }, 3000);
   }
 
   // onload check if user is logged in
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      router.push("/");
+    if (localStorage.getItem('user')) {
+      router.push('/');
     }
   }, [router]);
 
   // clear the input fields
   useEffect(() => {
-    dispatch(setUser({ username: "", email: "", password: "" }));
+    dispatch(setUser({ username: '', email: '', password: '' }));
   }, [dispatch]);
 
   const handleFile = (e) => {
@@ -58,21 +58,21 @@ const signup = () => {
     reader.readAsDataURL(file);
 
     // check if extension is valid
-    const validExtensions = ["jpg", "jpeg", "png"];
-    const extension = file.name.split(".").pop();
+    const validExtensions = ['jpg', 'jpeg', 'png'];
+    const extension = file.name.split('.').pop();
     if (!validExtensions.includes(extension)) {
-      alert("Invalid file type");
+      alert('Invalid file type');
       return;
     } else {
-      dispatch(setUser({ field: "profile", value: file }));
+      dispatch(setUser({ field: 'profile', value: file }));
     }
 
     // check if file size is less then 2mb
     if (file.size > 2 * 1024 * 1024) {
       setPopup({
         show: true,
-        message: "File size is too large",
-        status: "error",
+        message: 'File size is too large',
+        status: 'error',
       });
       return;
     }
@@ -87,28 +87,28 @@ const signup = () => {
     dispatch(setIsLoading(true));
     if (newUser?.password === confirm_password) {
       const formData = new FormData();
-      formData.append("name", newUser?.username);
-      formData.append("email", newUser?.email);
-      formData.append("password", newUser?.password);
-      formData.append("profile", newUser?.profile);
+      formData.append('name', newUser?.username);
+      formData.append('email', newUser?.email);
+      formData.append('password', newUser?.password);
+      formData.append('profile', newUser?.profile);
 
-      axios.post("/auth/register", formData).then((res) => {
+      axios.post('/auth/register', formData).then((res) => {
         console.log(res);
         if (res.data.success === true) {
           dispatch(setIsLoading(false));
           setPopup({
             show: true,
             message: res.data.message,
-            status: "success",
+            status: 'success',
           });
-          router.push("/login");
+          router.push('/login');
         }
       });
     } else {
       setPopup({
         show: true,
-        message: "Password does not match",
-        status: "error",
+        message: 'Password does not match',
+        status: 'error',
       });
     }
   };
@@ -120,7 +120,7 @@ const signup = () => {
         <Popup
           message={popup.message}
           status={popup.status}
-          close={() => setPopup({ show: false, message: "", status: "" })}
+          close={() => setPopup({ show: false, message: '', status: '' })}
         />
       )}
       <div className={styles.inner}>
@@ -140,7 +140,7 @@ const signup = () => {
                   value={newUser?.username}
                   onChange={(e) =>
                     dispatch(
-                      setUser({ field: "username", value: e.target.value })
+                      setUser({ field: 'username', value: e.target.value })
                     )
                   }
                 />
@@ -154,7 +154,7 @@ const signup = () => {
                   placeholder="Enter an email address"
                   value={newUser?.email}
                   onChange={(e) =>
-                    dispatch(setUser({ field: "email", value: e.target.value }))
+                    dispatch(setUser({ field: 'email', value: e.target.value }))
                   }
                 />
               </div>
@@ -168,7 +168,7 @@ const signup = () => {
                   value={newUser?.password}
                   onChange={(e) =>
                     dispatch(
-                      setUser({ field: "password", value: e.target.value })
+                      setUser({ field: 'password', value: e.target.value })
                     )
                   }
                 />

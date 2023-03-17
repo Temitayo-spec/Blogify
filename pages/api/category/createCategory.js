@@ -1,16 +1,18 @@
-import Category from '../../backend/models/categoryModel';
-import connectDB from '../../backend/config/db';
+import Category from "../../../models/categoryModel";
 
-connectDB();
-
-// @route POST api/category
-// @desc Create a category
+// @route GET api/category
+// @desc Get all categories
 // @access Private
 export default async function handler(req, res) {
-  const categories = await Category.find();
+  const { name } = req.body;
+  const newCategory = new Category({
+    name,
+  });
+
+  const category = await newCategory.save();
   res.status(200).json({
     success: true,
-    message: 'Categories fetched successfully',
-    categories,
+    message: 'Category created successfully',
+    category,
   });
 }

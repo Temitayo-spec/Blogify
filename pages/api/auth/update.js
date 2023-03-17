@@ -1,5 +1,5 @@
-import { User } from '../../../backend/models/userModel';
-import connectDB from '../../../backend/config/db';
+import User  from '../../../models/userModel';
+import connectDB from '../../../config/db';
 
 connectDB();
 

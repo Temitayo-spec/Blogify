@@ -1,9 +1,6 @@
-import { User } from '../../../backend/models/userModel';
-import connectDB from '../../../backend/config/db';
-import { generateToken } from '../../../backend/utils/generateToken';
+import { generateToken } from '../../../utils/generateToken';
 import bcrypt from 'bcrypt';
-
-connectDB();
+import User from '../../../models/userModel';
 
 // @route POST api/auth/login
 // @desc Login user / Returning JWT token

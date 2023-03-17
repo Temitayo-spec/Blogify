@@ -1,7 +1,4 @@
-import { User } from '../../../backend/models/userModel';
-import connectDB from '../../../backend/config/db';
-
-connectDB();
+import User from '../../../models/userModel';
 
 // @route GET api/auth/user
 // @desc Get user profile

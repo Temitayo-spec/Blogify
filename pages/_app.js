@@ -6,6 +6,9 @@ import { store } from "../store";
 import Preloader from "../components/Preloader";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { connectDB } from "../config/db";
+
+connectDB();
 
 function MyApp({ Component, pageProps, router }) {
   // set a timeout for the preloader to show

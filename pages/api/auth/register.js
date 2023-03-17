@@ -1,11 +1,8 @@
-import { User } from '../../../backend/models/userModel';
-import connectDB from '../../../backend/config/db';
-import { generateToken } from '../../../backend/utils/generateToken';
+import { generateToken } from '../../../utils/generateToken';
 import * as fs from 'fs';
 import bcrypt from 'bcrypt';
+import User from '../../../models/userModel';
 
-
-connectDB();
 
 // @route   POST api/auth/register
 // @desc    Register new user

@@ -5,15 +5,15 @@ import BlogPosts from "../components/BlogPosts";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import styles from "../styles/Home.module.css";
-import axios from "../axios/axios";
+import axios from "axios";
 import { selectToken } from "../store/token";
 import { setUserDetails } from "../store/userSlice";
 
 export const getServerSideProps = async (context) => {
   const query = context.query;
   const { cat } = query;
-  const res = await axios.get("/categories");
-  const post = await axios.get(`/posts/${cat ? `?cat=${cat}` : ""}`);
+  const res = await axios.get("/api/category/getCategories");
+  const post = await axios.get(`/api/post/${cat ? `?cat=${cat}` : ""}`);
   return {
     props: {
       categ: res.data,
@@ -28,7 +28,7 @@ export default function Home({ categ, posts }) {
 
   useEffect(() => {
     const getUserDetails = async () => {
-      const res = await axios.get("/auth/user", {
+      const res = await axios.get("/api/auth/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

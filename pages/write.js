@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Multiselect } from "multiselect-react-dropdown";
-import axios from "../axios/axios";
+import axios from "axios";
 import {
   selectDesc,
   selectIsLoading,
