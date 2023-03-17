@@ -14,7 +14,7 @@ import {
 } from "../store/loginSlice";
 import { setToken, selectToken } from "../store/token";
 import styles from "../styles/Login.module.css";
-import axios from "../axios/axios";
+import axios from "axios";
 import SmallSpinner from "../components/SmallSpinner";
 
 const login = () => {
